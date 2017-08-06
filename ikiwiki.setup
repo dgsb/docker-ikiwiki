@@ -8,7 +8,7 @@
 # Remember to re-run ikiwiki --setup any time you edit this file.
 #
 # name of the wiki
-wikiname: notes
+wikiname: docker-ikiwiki
 # contact email for wiki
 #adminemail: me@example.com
 # users who are wiki admins

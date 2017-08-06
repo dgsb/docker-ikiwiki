@@ -21,12 +21,14 @@ RUN apt-get update && apt-get install -y \
             lighttpd \
             xapian-omega
 
-
 RUN apt-get install -y vim
 
 # Setup directories needed by ssh
 RUN mkdir /var/run/sshd
 RUN chmod 700 /var/run/sshd
+
+# Setup cgi for lighttpd
+COPY 999-ikiwiki.conf /etc/lighttpd/conf-enabled
 
 RUN echo www-data:www-data | chpasswd
 COPY ikiwiki.setup /etc/ikiwiki/ikiwiki.setup

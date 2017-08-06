@@ -17,4 +17,4 @@ system("git clone /var/www/wiki.git /var/www/wiki-src");
 system("ikiwiki --setup /etc/ikiwiki/ikiwiki.setup --rebuild --wrappers");
 
 print "The setup script has been run\n";
-exec("/bin/bash");
+exec("/usr/sbin/lighttpd -D -f /etc/lighttpd/lighttpd.conf")
