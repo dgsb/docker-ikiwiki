@@ -1,17 +1,5 @@
 FROM debian:jessie
-MAINTAINER David Bariod
-
-#RUN apt-get update && apt-get install -y \
-#            apache2 \
-#            git \
-#            graphviz \
-#            ikiwiki \
-#            imagemagick \
-#            libxml-writer-perl \
-#            libsearch-xapian-perl \
-#            openssh-server \
-#            supervisor \
-#            xapian-omega
+MAINTAINER David Bariod <davidriod@googlemail.com>
 
 RUN apt-get update && apt-get install -y \
             git \
@@ -22,8 +10,6 @@ RUN apt-get update && apt-get install -y \
             openssh-server \
             supervisor \
             xapian-omega
-
-RUN apt-get install -y vim screen
 
 # Setup directories needed by ssh
 RUN mkdir /var/run/sshd
