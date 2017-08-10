@@ -21,6 +21,12 @@ docker build -t ikiwiki:latest .
 docker run -v <local git repository>:/wiki -p 2222:22 -p 8080:80 ikiwiki:latest
 ``
 
+The container can also be run from the pre-built image on [docker hub](https://hub.docker.com/r/dgsb/ikiwiki/) with this command:
+
+``
+docker run -v <local git repository>:/wiki -p 2222:22 -p 8080:80 dgsb/ikiwiki
+``
+
 The wiki server will be accessible through:
 
 ``
