@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
             git \
             ikiwiki \
             libsearch-xapian-perl \
+            libtext-csv-perl \
             libxml-writer-perl \
             lighttpd \
             openssh-server \
