@@ -39,8 +39,9 @@ RUN mkdir /wiki-setup
 RUN chown www-data: /wiki-setup
 
 # Startup program configuration
-COPY setup.pl /wiki-setup
-RUN chown www-data: /wiki-setup/setup.pl
+COPY setup.sh /wiki-setup
+RUN chown www-data: /wiki-setup/setup.sh
+RUN chmod 755 /wiki-setup/setup.sh
 COPY ikiwiki_supervisord.conf /etc/supervisor/conf.d
 
 # Setup the lighttpd configuration
@@ -49,4 +50,4 @@ COPY ikiwiki_supervisord.conf /etc/supervisor/conf.d
 VOLUME /wiki
 EXPOSE 22
 EXPOSE 80
-CMD su www-data -c /wiki-setup/setup.pl && supervisord -n
+CMD /wiki-setup/setup.sh && supervisord -n
