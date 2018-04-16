@@ -37,6 +37,6 @@ http://127.0.0.1:8080
 The container repository can be added as a remote in the local git repository:
 
 ``
-git remote add docker ssh://www-data@127.0.0.1:2222/var/wwww/wiki.git
+git remote add docker ssh://www-data@127.0.0.1:2222/var/www/wiki.git
 ``
 
