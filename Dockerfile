@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch-slim
 MAINTAINER David Bariod <davidriod@googlemail.com>
 
 RUN apt-get update && apt-get install -y \
@@ -15,10 +15,8 @@ RUN apt-get update && apt-get install -y \
 # Setup directories needed by ssh
 RUN mkdir /var/run/sshd
 RUN chmod 700 /var/run/sshd
-RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
 # Activate the www-data account for ssh acces to the git repository
-RUN echo www-data:www-data | chpasswd
 RUN chsh -s /bin/bash www-data
 
 # Setup cgi for lighttpd
@@ -29,14 +27,7 @@ COPY ikiwiki.setup /etc/ikiwiki/ikiwiki.setup
 RUN chown www-data: /etc/ikiwiki/ikiwiki.setup
 
 # Setup the ikiwiki directories
-RUN mkdir /var/www/wiki-src
-RUN chown www-data: /var/www/wiki-src
-RUN mkdir /var/www/wiki.git
-RUN chown www-data: /var/www/wiki.git
-RUN mkdir -p /var/www/html
-RUN chown www-data: /var/www/html
-RUN mkdir /wiki-setup
-RUN chown www-data: /wiki-setup
+RUN install -d -o www-data -g www-data /var/www/wiki-src /var/www/wiki.git /var/www/html /wiki-setup
 
 # Startup program configuration
 COPY setup.sh /wiki-setup
@@ -44,10 +35,9 @@ RUN chown www-data: /wiki-setup/setup.sh
 RUN chmod 755 /wiki-setup/setup.sh
 COPY ikiwiki_supervisord.conf /etc/supervisor/conf.d
 
-# Setup the lighttpd configuration
-#COPY lighttpd.conf /etc/lighttpd/lighttpd.conf
-
+# Add the volume from which the wiki repository will be retrieved from
 VOLUME /wiki
+
 EXPOSE 22
 EXPOSE 80
 CMD /wiki-setup/setup.sh && supervisord -n

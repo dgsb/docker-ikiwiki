@@ -6,7 +6,9 @@ You can find more information on ikiwiki [here](https://ikiwiki.info/)
 
 The docker image is based on debian/jessie, the web server used is lighttpd.
 A ssh server is also started in order to be able to use the git workflow with ikiwiki.
-An user can connect through ssh server with the user www-data (same password than login).
+An user can connect through ssh server with the user www-data.
+The public part of a ssh key must be copied to the container in order to be able to reach it
+through ssh.
 A volume is required to make the initial data import to the container local repository.
 
 ## How to build the image
@@ -40,3 +42,13 @@ The container repository can be added as a remote in the local git repository:
 git remote add docker ssh://www-data@127.0.0.1:2222/var/www/wiki.git
 ``
 
+## How to setup the ssh key
+
+The following commands makes the remote git repository accessible through ssh.
+The key name may need to be updated to your specific usage.
+
+``
+docker cp ${HOME}/.ssh/id_rsa_new.pub "${container}":/tmp/id_rsa.pub
+docker exec $container install -d -m 700 -o www-data -g www-data /var/www/.ssh
+docker exec $container install /tmp/id_rsa_new.pub /var/www/.ssh/authorized_keys
+``
