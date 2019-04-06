@@ -47,8 +47,8 @@ git remote add docker ssh://www-data@127.0.0.1:2222/var/www/wiki.git
 The following commands makes the remote git repository accessible through ssh.
 The key name may need to be updated to your specific usage.
 
-``
+```
 docker cp ${HOME}/.ssh/id_rsa_new.pub "${container}":/tmp/id_rsa.pub
 docker exec $container install -d -m 700 -o www-data -g www-data /var/www/.ssh
 docker exec $container install /tmp/id_rsa_new.pub /var/www/.ssh/authorized_keys
-``
+```
